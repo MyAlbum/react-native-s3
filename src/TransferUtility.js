@@ -20,7 +20,7 @@ const storeKey = "@_RNS3_Tasks_Extra";
  *		 iOS: { bucket, key, state, bytes, totalBytes }
  *		 Android: { bucket, key, bytes }
  */
-let taskExtras;
+const taskExtras = [];
 const listeners = {};	// [id]: [Function, ...]
 
 let EventEmitter;
@@ -31,7 +31,7 @@ if (Platform.OS === "ios") {
 }
 
 EventEmitter.addListener("@_RNS3_Events", async event => {
-	if (!taskExtras) await getTaskExtras();
+	if (taskExtras.length === 0) await getTaskExtras();
 	const { task, error } = event;
 
 	let finalTask = task;
