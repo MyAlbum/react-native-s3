@@ -257,11 +257,15 @@ RCT_EXPORT_METHOD(upload: (NSDictionary *)options resolver:(RCTPromiseResolveBlo
   NSURL *fileURL = [NSURL fileURLWithPath:[options objectForKey:@"file"]];
   NSDictionary *meta = [options objectForKey:@"meta"];
 
+  NSString *metaPrefix = @"x-amz-meta-";
   AWSS3TransferUtilityUploadExpression *expression = [AWSS3TransferUtilityUploadExpression new];
   if (meta) {
     for (id key in meta) {
-      NSString *value = [meta objectForKey:key];
-      [expression setValue:value forRequestHeader:key];
+      if(![key isEqualToString:@"Content-Type"])
+      {
+        NSString *value = [meta objectForKey:key];
+        [expression setValue:value forRequestParameter:[NSString stringWithFormat:@"%@%@", metaPrefix, [key lowercaseString]]];
+      }
     }
   }
 
