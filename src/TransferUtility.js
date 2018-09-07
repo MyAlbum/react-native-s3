@@ -20,7 +20,7 @@ const storeKey = "@_RNS3_Tasks_Extra";
  *		 iOS: { bucket, key, state, bytes, totalBytes }
  *		 Android: { bucket, key, bytes }
  */
-const taskExtras = [];
+let taskExtras = [];
 const listeners = {};	// [id]: [Function, ...]
 
 let EventEmitter;
