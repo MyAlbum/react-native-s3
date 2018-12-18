@@ -174,23 +174,42 @@ RCT_EXPORT_METHOD(enableProgressSent: (BOOL)enabled resolver:(RCTPromiseResolveB
     };
   }
 
-  if ([state isEqual: @"in_progress"] && !enabledProgress) {
-    return;
+  static NSDate *(startDate);
+  if ([state isEqual: @"in_progress"])
+  {
+    if(!enabledProgress)
+      return;
+    
+    if(startDate)
+    {
+      // Throttle progress event... the React Bridge is small
+      double timePassed_ms = [startDate timeIntervalSinceNow] * -1000.0;
+      if(timePassed_ms<100)
+      {
+        return;
+      }
+    }else
+    {
+      startDate = [NSDate date];
+    }
+    
+    startDate = [NSDate date];
   }
+  
   [self.bridge.eventDispatcher
-    sendAppEventWithName:@"@_RNS3_Events"
-    body:@{
-      @"task":@{
-        @"id":@([task taskIdentifier]),
-        // @"bucket":[task bucket],
-        // @"key":[task key],
-        @"state":state,
-        @"bytes":@(bytes),
-        @"totalBytes":@(totalBytes)
-      },
-      @"type":type,
-      @"error":errorObj ? errorObj : [NSNull null]
-    }];
+   sendAppEventWithName:@"@_RNS3_Events"
+   body:@{
+          @"task":@{
+              @"id":@([task taskIdentifier]),
+              // @"bucket":[task bucket],
+              // @"key":[task key],
+              @"state":state,
+              @"bytes":@(bytes),
+              @"totalBytes":@(totalBytes)
+              },
+          @"type":type,
+          @"error":errorObj ? errorObj : [NSNull null]
+          }];
 }
 
 RCT_EXPORT_METHOD(initializeRNS3) {
