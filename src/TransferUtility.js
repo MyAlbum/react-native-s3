@@ -34,6 +34,9 @@ EventEmitter.addListener("@_RNS3_Events", async event => {
 	if (taskExtras.length === 0) await getTaskExtras();
 	const { task, error } = event;
 
+	if(!task)
+		return;
+
 	let finalTask = task;
 	if (Platform.OS === "ios") {
 		const { state, bytes, totalBytes } = task;
