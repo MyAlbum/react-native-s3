@@ -308,7 +308,7 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getTask(int id, Promise promise) {
-    if(transferUtility)
+    if(transferUtility != null)
     {
       TransferObserver task = transferUtility.getTransferById(id);
       promise.resolve(convertTransferObserver(task));
@@ -319,7 +319,7 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getTasks(String type, Promise promise) {
-    if(transferUtility)
+    if(transferUtility != null)
     {
       List<TransferObserver> list = transferUtility.getTransfersWithType(TransferType.getType(type));
       promise.resolve(convertTransferObserverList(list));
