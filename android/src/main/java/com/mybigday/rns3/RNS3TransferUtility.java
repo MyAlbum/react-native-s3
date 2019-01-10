@@ -308,13 +308,23 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getTask(int id, Promise promise) {
-    TransferObserver task = transferUtility.getTransferById(id);
-    promise.resolve(convertTransferObserver(task));
+    if(transferUtility)
+    {
+      TransferObserver task = transferUtility.getTransferById(id);
+      promise.resolve(convertTransferObserver(task));
+    }
+    else
+      promise.resolve(convertTransferObserver(null));
   }
 
   @ReactMethod
   public void getTasks(String type, Promise promise) {
-    List<TransferObserver> list = transferUtility.getTransfersWithType(TransferType.getType(type));
-    promise.resolve(convertTransferObserverList(list));
+    if(transferUtility)
+    {
+      List<TransferObserver> list = transferUtility.getTransfersWithType(TransferType.getType(type));
+      promise.resolve(convertTransferObserverList(list));
+    }
+    else
+      promise.resolve(convertTransferObserverList(null));
   }
 }
