@@ -14,6 +14,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.auth.CognitoCredentialsProvider;
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 
@@ -193,11 +194,16 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
       default:
         return false;
     }
-    // TODO: support ClientConfiguration
+    
+    ClientConfiguration configuration = new ClientConfiguration();
+    configuration.setMaxErrorRetry(10); // 10 is max
+    configuration.setConnectionTimeout(300); // 5 minutes timeout interval when waiting for additional data
+    configuration.setSocketTimeout(3600); // Max 1 hour to complete a resource request
+
     if (credentials != null) {
-      s3 = new AmazonS3Client(credentials);
+      s3 = new AmazonS3Client(credentials, configuration);
     } else if (credentialsProvider != null) {
-      s3 = new AmazonS3Client(credentialsProvider);
+      s3 = new AmazonS3Client(credentialsProvider, configuration);
     }
     s3.setRegion(region);
     transferUtility = new TransferUtility(s3, context);

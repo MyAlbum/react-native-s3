@@ -135,6 +135,10 @@ static NSString* instanceKey = @"RNS3TransferUtility";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:region
                                                                          credentialsProvider:credentialsProvider];
 
+    configuration.maxRetryCount = 10; // 10 is max
+    configuration.timeoutIntervalForRequest = 300; // 5 minutes timeout interval when waiting for additional data
+    configuration.timeoutIntervalForResource = 3600; // Max 1 hour to complete a resource request
+
     [AWSS3TransferUtility registerS3TransferUtilityWithConfiguration:configuration
                                                               forKey:instanceKey];
     return YES;
