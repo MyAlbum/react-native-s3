@@ -39,7 +39,7 @@ repositories {
 
 dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    implementation "com.amazonaws:aws-android-sdk-core:${safeExtGet('aws-sdk-version', '2.6.+')}"
-    implementation "com.amazonaws:aws-android-sdk-cognito:${safeExtGet('aws-sdk-version', '2.6.+')}"
-    implementation "com.amazonaws:aws-android-sdk-s3:${safeExtGet('aws-sdk-version', '2.6.+')}"
+    implementation "com.amazonaws:aws-android-sdk-core:${safeExtGet('awsVersion', '2.6.+')}"
+    implementation "com.amazonaws:aws-android-sdk-cognito:${safeExtGet('awsVersion', '2.6.+')}"
+    implementation "com.amazonaws:aws-android-sdk-s3:${safeExtGet('awsVersion', '2.6.+')}"
 }
