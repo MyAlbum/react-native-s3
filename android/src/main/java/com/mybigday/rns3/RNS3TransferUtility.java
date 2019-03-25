@@ -209,8 +209,9 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
     
     ClientConfiguration configuration = new ClientConfiguration();
     configuration.setMaxErrorRetry(10); // 10 is max
-    configuration.setConnectionTimeout(300); // 5 minutes timeout interval when waiting for additional data
-    configuration.setSocketTimeout(3600); // Max 1 hour to complete a resource request
+    configuration.setConnectionTimeout(300000); // 5 minutes timeout interval when waiting for additional data
+    configuration.setSocketTimeout(3600000); // Max 1 hour to complete a resource request
+    configuration.setRequestTimeout(3600000); // Max 1 hour to complete a resource request
     configuration.setMaxConnections(1); // Only one thread
 
     if (credentials != null) {
