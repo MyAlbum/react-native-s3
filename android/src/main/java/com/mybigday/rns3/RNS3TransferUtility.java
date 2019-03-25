@@ -90,6 +90,18 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
     taskMap.putDouble("totalBytes", task.getBytesTotal());
     return taskMap;
   }
+  
+  private WritableMap convertTransferObserver(TransferObserver task, int id, TransferState state)
+  {
+    WritableMap taskMap = convertTransferObserver(task);
+    if(taskMap == null)
+      taskMap = Arguments.createMap();
+    
+    taskMap.putInt("id", id);
+    taskMap.putString("state", state.toString().toLowerCase());
+    
+    return taskMap;
+  }
 
   private WritableArray convertTransferObserverList(List<TransferObserver> list) {
     WritableArray taskList = Arguments.createArray();
@@ -109,7 +121,7 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
       public void onStateChanged(int id, TransferState state) {
         TransferObserver task = transferUtility.getTransferById(id);
         WritableMap result = Arguments.createMap();
-        result.putMap("task", convertTransferObserver(task));
+        result.putMap("task", convertTransferObserver(task, id, state));
         sendEvent("@_RNS3_Events", result);
       }
 
@@ -199,6 +211,7 @@ public class RNS3TransferUtility extends ReactContextBaseJavaModule {
     configuration.setMaxErrorRetry(10); // 10 is max
     configuration.setConnectionTimeout(300); // 5 minutes timeout interval when waiting for additional data
     configuration.setSocketTimeout(3600); // Max 1 hour to complete a resource request
+    configuration.setMaxConnections(1); // Only one thread
 
     if (credentials != null) {
       s3 = new AmazonS3Client(credentials, configuration);
