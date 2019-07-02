@@ -1,6 +1,6 @@
 {
   "name": "react-native-s3",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A React Native wrapper for AWS S3 SDK",
   "main": "./src/index.js",
   "files": ["android/", "ios/", "src/"],
@@ -19,7 +19,7 @@
     "extends": "mybigday"
   },
   "dependencies": {
-    "react-native-simple-store": "https://github.com/jasonmerino/react-native-simple-store.git#fe17187e811572fa2a1645ae084747e58360f4e6",
+    "react-native-simple-store": "^2.0.0",
     "snake-case": "^2.1.0"
   },
   "devDependencies": {
