@@ -86,7 +86,7 @@ async function setTaskExtra(task, values, isNew) {
 			}
 		}
 	}
-	await saveTaskExtras();
+	//await saveTaskExtras();
 	return putExtra(task);
 }
 
