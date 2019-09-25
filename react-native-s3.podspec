@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/**/*.{h,m}"
 
   s.dependency "React"
-  s.dependency "AWSCognito", '~> 2.9.0'
-  s.dependency "AWSCore", '~> 2.9.0'
-  s.dependency "AWSS3", '~> 2.9.0'
+  s.dependency "AWSCognito", '~> 2.11.1'
+  s.dependency "AWSCore", '~> 2.11.1'
+  s.dependency "AWSS3", '~> 2.11.1'
 end
