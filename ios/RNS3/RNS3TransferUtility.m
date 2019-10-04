@@ -174,7 +174,8 @@ RCT_EXPORT_METHOD(enableProgressSent: (BOOL)enabled resolver:(RCTPromiseResolveB
     errorObj = @{
       @"domain":[error domain],
       @"code": @([error code]),
-      @"description": [error localizedDescription]
+      @"description": [error localizedDescription],
+      @"userInfo": [error userInfo]
     };
   }
 
